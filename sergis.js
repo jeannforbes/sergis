@@ -1,12 +1,15 @@
 
 var map = null
 
+// Create an element and append it as a child of the given parent element.
+// Then return the child element.
 function createChild( parent, child ) {
     var e = document.createElement( child );
     parent.appendChild( e );
     return e;
 }
 
+// constructor for SeriousGame class
 function SeriousGame (jsonstring) {
     this.json = JSON.parse(jsonstring)
     if this.json == null {
@@ -15,16 +18,17 @@ function SeriousGame (jsonstring) {
     if !this.verifyJson() {
         throw new IllegalArgumentException("Invalid game data");
     }
-}
-
-SeriousGame.prototype.play = function () {
-    var map = document.getElementById( "map-canvas" );
-    var latlng = this.json.location
-    map.setCenter( new google.maps.LatLng( latlng[0], latlng[1] ) );
-    map.setZoom( this.json.zoom );
     this.dialogNumber = 0
 }
 
+// actually start playing the game
+SeriousGame.prototype.play = function () {
+    var latlng = this.json.location
+    map.setCenter( new google.maps.LatLng( latlng[0], latlng[1] ) );
+    map.setZoom( this.json.zoom );
+}
+
+// creates a dialog
 SeriousGame.prototype.createDialog = function (json) {
     var nd = document.createElement( "div" );
     nd.id = "dialog";
@@ -62,6 +66,7 @@ SeriousGame.prototype.createDialog = function (json) {
     $( "#dialog" ).dialog();
 }
 
+// perform an action
 SeriousGame.prototype.doAction = function () {
 
 }
